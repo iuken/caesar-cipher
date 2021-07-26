@@ -1,26 +1,17 @@
 package com.company;
 
-import service.SimpleDecryptionService;
-
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+import com.company.repository.SimpleFileRepository;
+import com.company.service.SimpleDecryptionService;
 
 public class Main {
     public static void main(String[] args) {
-//        SimpleDecryptionService sds = new SimpleDecryptionService();
-//        System.out.println(sds.ShiftLetter("абвгд",5));
-        byte[] bytes =("абвгдр".getBytes(StandardCharsets.UTF_8));
-        for (int i = 1 ; i < bytes.length; i = i +2){
-            System.out.println(bytes[i]);
-            bytes[i] = (byte) (bytes[i]+2);
-        }
-
-
-        try {
-            System.out.println(new String(bytes, "UTF-8").toCharArray());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        SimpleDecryptionService sds = new SimpleDecryptionService();
+        SimpleFileRepository sfr = new SimpleFileRepository();
+        String filePath = "cipher_text.txt";
+        String text = sfr.readFileFromResources(filePath);
+        for (int i = 0; i < 33; i++) {
+            System.out.println(sds.DecryptString(text, i));
+            System.out.println();
         }
     }
 }
